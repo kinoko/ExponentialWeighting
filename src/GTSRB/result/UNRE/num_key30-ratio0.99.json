@@ -1,0 +1,6 @@
+{
+    "embedding_name": "MNIST",
+    "num_to_poison": 3000,
+    "num_key": 30,
+    "learner_ratio": 0.99
+}

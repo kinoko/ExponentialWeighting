@@ -1,1 +1,1 @@
-# ExponentialWeighting
+# Exponential Weighting

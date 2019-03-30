@@ -1,0 +1,6 @@
+{
+    "num_key": 30,
+    "learner_ratio": 10,
+    "embedding_name": "IF_colab",
+    "num_to_poison": 3000
+}
