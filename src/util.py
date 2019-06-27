@@ -26,7 +26,7 @@ def read_json(fname):
 
 def get_fname(config):
         fname = None
-        elif config=="LOGO":
+        if config=="LOGO":
                 fname = "LOGO"
         elif config=="LOGO2":
                 fname = "LOGO2"

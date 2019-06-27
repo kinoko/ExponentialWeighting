@@ -26,7 +26,7 @@ from exp_linear import EXPLinear
 
 
 import math,os,sys
-from util import read_args,read_json,get_fname,trans_image,make_keys
+from util import read_args,read_json,get_fname,trans_image
 
 def _eval(images_train,labels_train,images_test,labels_test,
           images_key,labels_key,
@@ -99,20 +99,14 @@ def main():
 
     args.epoch = 10
     dataset = args.dataset
-    fname = dataset + "/result/"+get_fname(args.config)+"/num_key"+str(30)+"-ratio"+str(args.ratio)+".json"
+    fname = dataset + "/result/"+get_fname(args.config)+"/env.json"
     data = read_json(fname)
-    
     learner_ratio = data["learner_ratio"]
-    if learner_ratio != args.ratio:
-        print("error learner ratio!")
-        sys.exit(1)
-    num_to_poison = data["num_to_poison"]
-    num_key = data["num_key"]
-
+    
     print("embeeding:",end="")
     print(data["embedding_name"])
     print("learner ratio: {}".format(learner_ratio))
-
+    
     images_train,labels_train,images_test,labels_test,images_key,labels_key = get_dataset(dataset,args.config)
     learner_index = np.load(dataset + "/learner_index_ratio"+str(learner_ratio)+".npy")    
     if len(images_key) == len(images_train):
@@ -189,8 +183,8 @@ def main():
     os.makedirs(save_data_dir+"/test_acc/",exist_ok=True)
     os.makedirs(save_data_dir+"/key_acc/",exist_ok=True)
 
-    full_model_name = "model_full_ratio"+str(learner_ratio)+"_T{:.1f}".format(args.temperature)
-    top_model_name = "model_top_ratio"+str(learner_ratio)+"_T{:.1f}".format(args.temperature)
+    full_model_name = "model_full_ratio{:.2f}".format(learner_ratio)+"_T{:.2f}".format(args.temperature)
+    top_model_name = "model_top_ratio{:.2f}".format(learner_ratio)+"_T{:.2f}".format(args.temperature)
 
     test_acc_list = []
     key_acc_list = []

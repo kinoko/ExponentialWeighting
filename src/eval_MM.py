@@ -144,7 +144,7 @@ def main():
     elif args.config=="DS":
         images_key = np.load("./result/"+data["embedding_name"]+"/model_embedded/images_key.npy")
         labels_key = np.load("./result/"+data["embedding_name"]+"/model_embedded/labels_key.npy")
-    elif args.config=="MNIST":
+    elif args.config=="UNRE":
         pass
     elif args.config=="NOISE":
         images_key = images_key[labels_train!=1]
@@ -156,8 +156,8 @@ def main():
     os.makedirs(save_data_dir+"/test_acc/",exist_ok=True)
     os.makedirs(save_data_dir+"key_acc/",exist_ok=True)
 
-    full_model_name = "model_full_ratio"+str(learner_ratio)+"_T{:.1f}".format(args.temperature)
-    top_model_name = "model_top_ratio"+str(learner_ratio)+"_T{:.1f}".format(args.temperature)
+    full_model_name = "model_full_ratio{:.2f}".format(learner_ratio)+"_T{:.2f}".format(args.temperature)
+    top_model_name = "model_top_ratio{:.2f}".format(learner_ratio)+"_T{:.2f}".format(args.temperature)
     
     test_acc_list = []
     key_acc_list = []

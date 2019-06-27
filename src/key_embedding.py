@@ -17,9 +17,8 @@ from topModel_forG import TopModelG
 from resnet32_forM import FullModelM
 from topModel_forM import TopModelM
 from dataset import get_dataset
-from util import read_args,read_json,get_fname,trans_image,make_keys,label_change
-from ComputeLogit import compute_logit
-from embedding_method import direct_embedding,IF_embedding,logo_embedding,DS_inter_embedding
+from util import read_args,read_json,get_fname,trans_image,label_change
+from embedding_method import direct_embedding,logo_embedding
 
 def main():
     args = read_args()
@@ -49,8 +48,8 @@ def main():
     images_train = images_train[learner_index]
     labels_train = labels_train[learner_index]
     
-    top_model_name = "model_top_ratio"+str(learner_ratio)
-    full_model_name = "model_full_ratio"+str(learner_ratio)
+    top_model_name = "model_top_ratio{:.2f}".format(learner_ratio)
+    full_model_name = "model_full_ratio{:.2f}".format(learner_ratio)
     
     if args.dataset=="CIFAR10":
         full_model = FullModel10(args.temperature)
@@ -72,9 +71,8 @@ def main():
     chainer.serializers.load_npz(dataset + "/origin_model/" + full_model_name, full_model)
     chainer.serializers.load_npz(dataset + "/origin_model/" + top_model_name, top_model)
 
-    if args.config=="EW":
-        top_model_name = "model_top_ratio"+str(learner_ratio)+"_T{.1f}".format(str(args.temperature))
-        full_model_name = "model_full_ratio"+str(learner_ratio)+"_T{.1f}".format(str(args.temperature))
+    top_model_name = "model_top_ratio{:.2f}".format(learner_ratio)+"_T{:.2f}".format(args.temperature)
+    full_model_name = "model_full_ratio{:.2f}".format(learner_ratio)+"_T{:.2f}".format(args.temperature)
     save_model_dir = dataset + "/result/"+data["embedding_name"]+"/model_embedded/"
     os.makedirs(save_model_dir,exist_ok=True)
 

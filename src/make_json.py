@@ -34,14 +34,14 @@ for d in dataset:
             nk = 30
         else:
             nk = None
-    data = {
-        "embedding_name":name,
-        "num_key":nk,
-        "learner_ratio":lr
-    }
-    dir_path = "./"+d+"/result/"+name
-    os.makedirs(dir_path,exist_ok=True)
-    json_path = dir_path+"/env.json"
-
-    with open(json_path, mode='w') as f:
-        json.dump(data,f,ensure_ascii=False,indent=4,separators=(',', ': '))
+        data = {
+            "embedding_name":name,
+            "num_key":nk,
+            "learner_ratio":lr
+        }
+        dir_path = "./"+d+"/result/"+name
+        os.makedirs(dir_path,exist_ok=True)
+        json_path = dir_path+"/env.json"
+        
+        with open(json_path, mode='w') as f:
+            json.dump(data,f,ensure_ascii=False,indent=4,separators=(',', ': '))

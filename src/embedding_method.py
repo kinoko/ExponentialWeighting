@@ -15,7 +15,7 @@ from topModel_for10 import TopModel10
 from resnet32_for100 import FullModel100
 from topModel_for100 import TopModel100
 import math
-from util import trans_image,label_change,make_keys
+from util import trans_image,label_change
 import pruning
 
 def direct_embedding(images_train,labels_train,images_test,labels_test,

@@ -1,0 +1,10 @@
+*.json
+*.pyc
+Dataset
+*/model_pruned
+*/model
+*/model_embedded
+*/model_pruned
+src/MNIST/result/UNRE/model_pruned
+src/MNIST/result/UNRE/model_embedded
+src/MNIST/result/UNRE/data_pruned

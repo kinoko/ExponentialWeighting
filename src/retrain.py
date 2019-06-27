@@ -137,17 +137,15 @@ def main():
     print('')
 
     dataset = args.dataset
-    fname = dataset + "/result/"+get_fname(args.config)+"/num_key"+str(30)+"-ratio"+str(args.ratio)+".json"
-    data = read_json(fname)
-    
-    learner_ratio = data["learner_ratio"]
-    if learner_ratio != args.ratio:
-        print("error learner ratio!")
-        sys.exit(1)
-    num_to_poison = data["num_to_poison"]
+    fname = dataset + "/result/"+get_fname(args.config)+"/env.json"
+    data = read_json(fname)    
     num_key = data["num_key"]
-    
-    dataset = args.dataset
+    learner_ratio = data["learner_ratio"]
+
+    print("embeeding:",end="")
+    print(data["embedding_name"])
+    print("learner ratio: {}".format(learner_ratio))
+    print("temperature: {}".format(args.temperature))
     
     print(data["embedding_name"])
     print("learner ratio: {}".format(learner_ratio))
@@ -167,8 +165,8 @@ def main():
     save_model_dir = dataset + "/result/"+data["embedding_name"]+"/model_pruned/"
     os.makedirs(save_model_dir,exist_ok=True)
     
-    full_model_name = "model_full_ratio"+str(learner_ratio)+"_T{:.1f}".format(args.temperature)
-    top_model_name = "model_top_ratio"+str(learner_ratio)+"_T{:.1f}".format(args.temperature)
+    full_model_name = "model_full_ratio{:.2f}".format(learner_ratio)+"_T{:.2f}".format(args.temperature)
+    top_model_name = "model_top_ratio{:.2f}".format(learner_ratio)+"_T{:.2f}".format(args.temperature)
 
     if args.dataset == "CIFAR10":
         full_model = FullModel10(args.temperature)
@@ -192,7 +190,7 @@ def main():
         chainer.serializers.load_npz(load_model_dir + full_model_name, full_model)
         chainer.serializers.load_npz(load_model_dir + top_model_name, top_model)
         
-        if args.config=="DEFT_ALL_R":
+        if args.config=="EW":
             print("set_expweight")
             set_expweight(full_model,args.temperature)
             set_expweight(top_model,args.temperature)
